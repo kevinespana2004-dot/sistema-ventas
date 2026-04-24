@@ -23,7 +23,7 @@ window.entrar = function() {
     document.getElementById("login").style.display = "none";
     document.getElementById("panel").style.display = "block";
 
-    document.getElementById("tituloNegocio").textContent = encontrado.negocio;
+    document.getElementById("tituloNegocio").innerText = encontrado.negocio;
   } else {
     alert("Usuario o contraseña incorrectos");
   }
