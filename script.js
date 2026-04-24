@@ -29,7 +29,11 @@ function salir() {
 // REGISTRO
 function mostrarRegistro() {
   let reg = document.getElementById("registro");
-  reg.style.display = reg.style.display === "none" ? "block" : "none";
+  if (reg.style.display === "none") {
+    reg.style.display = "block";
+  } else {
+    reg.style.display = "none";
+  }
 }
 
 function registrar() {
@@ -42,7 +46,7 @@ function registrar() {
   }
 
   usuarios.push({ user: u, pass: p });
-  alert("Usuario creado");
+  alert("Usuario creado correctamente");
 
   document.getElementById("nuevoUser").value = "";
   document.getElementById("nuevoPass").value = "";
@@ -50,7 +54,9 @@ function registrar() {
 
 // NAVEGACIÓN
 function mostrar(seccion) {
-  document.querySelectorAll(".seccion").forEach(s => s.style.display = "none");
+  let secciones = document.querySelectorAll(".seccion");
+  secciones.forEach(s => s.style.display = "none");
+
   document.getElementById(seccion).style.display = "block";
 }
 
@@ -65,11 +71,13 @@ function agregarProducto() {
 
   let li = document.createElement("li");
   li.textContent = nombre + " - $" + precio;
+
   document.getElementById("listaProductos").appendChild(li);
 
   actualizarSelect();
 }
 
+// ACTUALIZAR SELECT
 function actualizarSelect() {
   let select = document.getElementById("productoSelect");
   select.innerHTML = "";
@@ -96,9 +104,9 @@ function agregarFactura() {
   total += subtotal;
 
   let li = document.createElement("li");
-  li.textContent = `${prod.nombre} x${cantidad} = $${subtotal}`;
-  document.getElementById("facturaLista").appendChild(li);
+  li.textContent = prod.nombre + " x" + cantidad + " = $" + subtotal;
 
+  document.getElementById("facturaLista").appendChild(li);
   document.getElementById("total").textContent = total;
 }
 
@@ -133,6 +141,7 @@ function buscarProducto() {
   });
 }
 
+// LIMPIAR BUSQUEDA
 function limpiarBusqueda() {
   document.getElementById("busqueda").value = "";
   document.getElementById("resultadoBusqueda").innerHTML = "";
@@ -154,7 +163,7 @@ function exportar() {
   contenido += "Cédula: " + cedula + "\n\n";
 
   factura.forEach(f => {
-    contenido += `${f.nombre} x${f.cantidad} = $${f.subtotal}\n`;
+    contenido += f.nombre + " x" + f.cantidad + " = $" + f.subtotal + "\n";
   });
 
   contenido += "\nTOTAL: $" + total;
@@ -165,3 +174,4 @@ function exportar() {
   link.href = URL.createObjectURL(blob);
   link.download = "factura.txt";
   link.click();
+}
