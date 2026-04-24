@@ -86,9 +86,26 @@ function buscarProducto() {
   });
 }
 
+// LIMPIAR BUSQUEDA
+function limpiarBusqueda() {
+  document.getElementById("busqueda").value = "";
+  document.getElementById("resultadoBusqueda").innerHTML = "";
+}
+
 // EXPORTAR FACTURA
 function exportar() {
+
+  let nombre = document.getElementById("clienteNombre").value;
+  let cedula = document.getElementById("clienteCedula").value;
+
+  if (!nombre || !cedula) {
+    alert("Ingrese datos del cliente");
+    return;
+  }
+
   let contenido = "FACTURA\n\n";
+  contenido += "Cliente: " + nombre + "\n";
+  contenido += "Cédula: " + cedula + "\n\n";
 
   factura.forEach(f => {
     contenido += `${f.nombre} x${f.cantidad} = $${f.subtotal}\n`;
