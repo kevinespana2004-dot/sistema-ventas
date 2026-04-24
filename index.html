@@ -21,6 +21,15 @@
   <input id="pass" type="password" class="form-control my-2" placeholder="Contraseña">
 
   <button class="btn btn-primary w-100" onclick="entrar()">Ingresar</button>
+
+  <button class="btn btn-secondary w-100 mt-2" onclick="mostrarRegistro()">Crear usuario</button>
+
+  <!-- REGISTRO -->
+  <div id="registro" style="display:none;" class="mt-3">
+    <input id="nuevoUser" class="form-control my-2" placeholder="Nuevo usuario">
+    <input id="nuevoPass" type="password" class="form-control my-2" placeholder="Nueva contraseña">
+    <button class="btn btn-success w-100" onclick="registrar()">Guardar usuario</button>
+  </div>
 </div>
 
 <!-- PANEL -->
@@ -56,11 +65,9 @@
   <div id="facturacion" class="seccion mt-4" style="display:none;">
     <h4>Facturación</h4>
 
-    <!-- DATOS CLIENTE -->
     <input id="clienteNombre" class="form-control my-2" placeholder="Nombre del cliente">
     <input id="clienteCedula" class="form-control my-2" placeholder="Cédula del cliente">
 
-    <!-- PRODUCTOS -->
     <select id="productoSelect" class="form-control my-2"></select>
     <input id="cantidad" type="number" class="form-control my-2" placeholder="Cantidad">
 
@@ -71,6 +78,7 @@
     <h5>Total: $<span id="total">0</span></h5>
 
     <button class="btn btn-primary" onclick="exportar()">Exportar factura</button>
+    <button class="btn btn-danger mt-2" onclick="nuevaFactura()">Nueva factura</button>
   </div>
 
   <!-- BUSCAR -->
