@@ -1,0 +1,4 @@
+function entrar() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("panel").style.display = "block";
+}
