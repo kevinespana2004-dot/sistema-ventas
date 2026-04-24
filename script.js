@@ -5,8 +5,10 @@ let factura = [];
 let total = 0;
 
 let usuarios = [
-  { user: "admin", pass: "123" }
+  { user: "admin", pass: "123", negocio: "Mi Negocio" }
 ];
+
+let usuarioActual = null;
 
 // LOGIN
 window.entrar = function() {
@@ -16,8 +18,12 @@ window.entrar = function() {
   let encontrado = usuarios.find(x => x.user === u && x.pass === p);
 
   if (encontrado) {
+    usuarioActual = encontrado;
+
     document.getElementById("login").style.display = "none";
     document.getElementById("panel").style.display = "block";
+
+    document.getElementById("tituloNegocio").textContent = encontrado.negocio;
   } else {
     alert("Usuario o contraseña incorrectos");
   }
@@ -38,17 +44,20 @@ window.mostrarRegistro = function() {
 window.registrar = function() {
   let u = document.getElementById("nuevoUser").value;
   let p = document.getElementById("nuevoPass").value;
+  let n = document.getElementById("nombreNegocio").value;
 
-  if (!u || !p) {
-    alert("Complete los datos");
+  if (!u || !p || !n) {
+    alert("Complete todos los datos");
     return;
   }
 
-  usuarios.push({ user: u, pass: p });
+  usuarios.push({ user: u, pass: p, negocio: n });
+
   alert("Usuario creado");
 
   document.getElementById("nuevoUser").value = "";
   document.getElementById("nuevoPass").value = "";
+  document.getElementById("nombreNegocio").value = "";
 }
 
 // NAVEGACIÓN
@@ -61,13 +70,14 @@ window.mostrar = function(seccion) {
 window.agregarProducto = function() {
   let nombre = document.getElementById("nombre").value;
   let precio = parseFloat(document.getElementById("precio").value);
+  let stock = parseInt(document.getElementById("stock").value);
 
-  if (!nombre || !precio) return;
+  if (!nombre || !precio || !stock) return;
 
-  productos.push({ nombre, precio });
+  productos.push({ nombre, precio, stock });
 
   let li = document.createElement("li");
-  li.textContent = nombre + " - $" + precio;
+  li.textContent = nombre + " - $" + precio + " | Stock: " + stock;
 
   document.getElementById("listaProductos").appendChild(li);
 
@@ -94,6 +104,14 @@ window.agregarFactura = function() {
   if (i === "" || !cantidad) return;
 
   let prod = productos[i];
+
+  if (cantidad > prod.stock) {
+    alert("No hay suficiente stock");
+    return;
+  }
+
+  prod.stock -= cantidad;
+
   let subtotal = prod.precio * cantidad;
 
   factura.push({ ...prod, cantidad, subtotal });
@@ -131,7 +149,7 @@ window.buscarProducto = function() {
   productos.forEach(p => {
     if (p.nombre.toLowerCase().includes(texto)) {
       let li = document.createElement("li");
-      li.textContent = p.nombre;
+      li.textContent = p.nombre + " | Stock: " + p.stock;
       lista.appendChild(li);
     }
   });
