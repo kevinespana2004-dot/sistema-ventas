@@ -23,6 +23,7 @@ window.entrar = function() {
   }
 }
 
+// SALIR
 window.salir = function() {
   document.getElementById("panel").style.display = "none";
   document.getElementById("login").style.display = "block";
@@ -136,6 +137,7 @@ window.buscarProducto = function() {
   });
 }
 
+// LIMPIAR
 window.limpiarBusqueda = function() {
   document.getElementById("busqueda").value = "";
   document.getElementById("resultadoBusqueda").innerHTML = "";
