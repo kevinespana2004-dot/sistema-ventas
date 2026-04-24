@@ -1,15 +1,19 @@
 body {
   font-family: Arial;
-  text-align: center;
 }
 
-input {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
+.card {
+  max-width: 400px;
+  margin: auto;
+  border-radius: 15px;
 }
 
 button {
-  padding: 10px;
-  margin: 5px;
-  cursor: pointer;
+  border-radius: 10px;
+}
+
+.seccion {
+  background: #222;
+  padding: 15px;
+  border-radius: 10px;
+}
