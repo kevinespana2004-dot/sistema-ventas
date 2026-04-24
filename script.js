@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function () {
+
 let productos = [];
 let factura = [];
 let total = 0;
@@ -7,7 +9,7 @@ let usuarios = [
 ];
 
 // LOGIN
-function entrar() {
+window.entrar = function() {
   let u = document.getElementById("user").value;
   let p = document.getElementById("pass").value;
 
@@ -21,22 +23,18 @@ function entrar() {
   }
 }
 
-function salir() {
+window.salir = function() {
   document.getElementById("panel").style.display = "none";
   document.getElementById("login").style.display = "block";
 }
 
 // REGISTRO
-function mostrarRegistro() {
+window.mostrarRegistro = function() {
   let reg = document.getElementById("registro");
-  if (reg.style.display === "none") {
-    reg.style.display = "block";
-  } else {
-    reg.style.display = "none";
-  }
+  reg.style.display = reg.style.display === "none" ? "block" : "none";
 }
 
-function registrar() {
+window.registrar = function() {
   let u = document.getElementById("nuevoUser").value;
   let p = document.getElementById("nuevoPass").value;
 
@@ -46,22 +44,20 @@ function registrar() {
   }
 
   usuarios.push({ user: u, pass: p });
-  alert("Usuario creado correctamente");
+  alert("Usuario creado");
 
   document.getElementById("nuevoUser").value = "";
   document.getElementById("nuevoPass").value = "";
 }
 
 // NAVEGACIÓN
-function mostrar(seccion) {
-  let secciones = document.querySelectorAll(".seccion");
-  secciones.forEach(s => s.style.display = "none");
-
+window.mostrar = function(seccion) {
+  document.querySelectorAll(".seccion").forEach(s => s.style.display = "none");
   document.getElementById(seccion).style.display = "block";
 }
 
 // INVENTARIO
-function agregarProducto() {
+window.agregarProducto = function() {
   let nombre = document.getElementById("nombre").value;
   let precio = parseFloat(document.getElementById("precio").value);
 
@@ -77,7 +73,6 @@ function agregarProducto() {
   actualizarSelect();
 }
 
-// ACTUALIZAR SELECT
 function actualizarSelect() {
   let select = document.getElementById("productoSelect");
   select.innerHTML = "";
@@ -91,7 +86,7 @@ function actualizarSelect() {
 }
 
 // FACTURA
-function agregarFactura() {
+window.agregarFactura = function() {
   let i = document.getElementById("productoSelect").value;
   let cantidad = parseInt(document.getElementById("cantidadInput").value);
 
@@ -111,7 +106,7 @@ function agregarFactura() {
 }
 
 // NUEVA FACTURA
-function nuevaFactura() {
+window.nuevaFactura = function() {
   factura = [];
   total = 0;
 
@@ -126,7 +121,7 @@ function nuevaFactura() {
 }
 
 // BUSCAR
-function buscarProducto() {
+window.buscarProducto = function() {
   let texto = document.getElementById("busqueda").value.toLowerCase();
   let lista = document.getElementById("resultadoBusqueda");
 
@@ -141,14 +136,13 @@ function buscarProducto() {
   });
 }
 
-// LIMPIAR BUSQUEDA
-function limpiarBusqueda() {
+window.limpiarBusqueda = function() {
   document.getElementById("busqueda").value = "";
   document.getElementById("resultadoBusqueda").innerHTML = "";
 }
 
 // EXPORTAR
-function exportar() {
+window.exportar = function() {
 
   let nombre = document.getElementById("clienteNombre").value;
   let cedula = document.getElementById("clienteCedula").value;
@@ -175,3 +169,5 @@ function exportar() {
   link.download = "factura.txt";
   link.click();
 }
+
+});
