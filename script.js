@@ -2,22 +2,50 @@ let productos = [];
 let factura = [];
 let total = 0;
 
+let usuarios = [
+  { user: "admin", pass: "123" }
+];
+
 // LOGIN
 function entrar() {
   let u = user.value;
   let p = pass.value;
 
-  if (u === "admin" && p === "123") {
+  let encontrado = usuarios.find(x => x.user === u && x.pass === p);
+
+  if (encontrado) {
     login.style.display = "none";
     panel.style.display = "block";
   } else {
-    alert("Datos incorrectos");
+    alert("Usuario o contraseña incorrectos");
   }
 }
 
 function salir() {
   panel.style.display = "none";
   login.style.display = "block";
+}
+
+// REGISTRO
+function mostrarRegistro() {
+  let reg = document.getElementById("registro");
+  reg.style.display = reg.style.display === "none" ? "block" : "none";
+}
+
+function registrar() {
+  let u = document.getElementById("nuevoUser").value;
+  let p = document.getElementById("nuevoPass").value;
+
+  if (!u || !p) {
+    alert("Complete los datos");
+    return;
+  }
+
+  usuarios.push({ user: u, pass: p });
+  alert("Usuario creado");
+
+  nuevoUser.value = "";
+  nuevoPass.value = "";
 }
 
 // NAVEGACIÓN
@@ -42,7 +70,6 @@ function agregarProducto() {
   actualizarSelect();
 }
 
-// ACTUALIZAR SELECT
 function actualizarSelect() {
   productoSelect.innerHTML = "";
 
@@ -57,7 +84,7 @@ function actualizarSelect() {
 // FACTURA
 function agregarFactura() {
   let i = productoSelect.value;
-  let cantidad = parseInt(document.getElementById("cantidad").value);
+  let cantidad = parseInt(cantidad.value);
 
   if (i === "" || !cantidad) return;
 
@@ -74,6 +101,20 @@ function agregarFactura() {
   document.getElementById("total").textContent = total;
 }
 
+function nuevaFactura() {
+  factura = [];
+  total = 0;
+
+  facturaLista.innerHTML = "";
+  document.getElementById("total").textContent = "0";
+
+  clienteNombre.value = "";
+  clienteCedula.value = "";
+  cantidad.value = "";
+
+  alert("Nueva factura lista");
+}
+
 // BUSCAR
 function buscarProducto() {
   let texto = busqueda.value.toLowerCase();
@@ -88,17 +129,16 @@ function buscarProducto() {
   });
 }
 
-// LIMPIAR BUSQUEDA
 function limpiarBusqueda() {
-  document.getElementById("busqueda").value = "";
-  document.getElementById("resultadoBusqueda").innerHTML = "";
+  busqueda.value = "";
+  resultadoBusqueda.innerHTML = "";
 }
 
-// EXPORTAR FACTURA
+// EXPORTAR
 function exportar() {
 
-  let nombre = document.getElementById("clienteNombre").value;
-  let cedula = document.getElementById("clienteCedula").value;
+  let nombre = clienteNombre.value;
+  let cedula = clienteCedula.value;
 
   if (!nombre || !cedula) {
     alert("Ingrese datos del cliente");
