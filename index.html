@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -55,6 +56,9 @@
   <div id="facturacion" class="seccion mt-4" style="display:none;">
     <h4>Facturación</h4>
 
+    <input id="clienteNombre" class="form-control my-2" placeholder="Nombre del cliente">
+    <input id="clienteCedula" class="form-control my-2" placeholder="Cédula del cliente">
+
     <select id="productoSelect" class="form-control my-2"></select>
     <input id="cantidad" type="number" class="form-control my-2" placeholder="Cantidad">
 
@@ -72,6 +76,7 @@
     <h4>Buscar Producto</h4>
 
     <input id="busqueda" class="form-control" onkeyup="buscarProducto()" placeholder="Buscar...">
+    <button class="btn btn-secondary mt-2" onclick="limpiarBusqueda()">Limpiar</button>
 
     <ul id="resultadoBusqueda"></ul>
   </div>
