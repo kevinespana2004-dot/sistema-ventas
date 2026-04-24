@@ -1,28 +1,85 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Sistema de Ventas</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Sistema Microempresa</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 </head>
-<body>
 
-  <h1>Bienvenido al Sistema</h1>
+<body class="bg-dark text-white">
 
-  <div id="login">
-    <h2>Login</h2>
-    <input type="text" placeholder="Usuario">
-    <input type="password" placeholder="Contraseña">
-    <button onclick="entrar()">Ingresar</button>
+<div class="container mt-5">
+
+<!-- LOGIN -->
+<div id="login" class="card p-4 shadow bg-light text-dark">
+  <h3 class="text-center">Sistema de Ventas</h3>
+
+  <input id="user" class="form-control my-2" placeholder="Usuario">
+  <input id="pass" type="password" class="form-control my-2" placeholder="Contraseña">
+
+  <button class="btn btn-primary w-100" onclick="entrar()">Ingresar</button>
+</div>
+
+<!-- PANEL -->
+<div id="panel" style="display:none;">
+
+  <div class="d-flex justify-content-between mt-3">
+    <h2>Panel</h2>
+    <button class="btn btn-danger" onclick="salir()">Cerrar sesión</button>
   </div>
 
-  <div id="panel" style="display:none;">
-    <h2>Panel Principal</h2>
-    <button>Inventario</button>
-    <button>Ventas</button>
-    <button>Buscar</button>
+  <hr>
+
+  <!-- MENÚ -->
+  <div class="row text-center">
+    <div class="col"><button class="btn btn-success w-100" onclick="mostrar('inventario')">Inventario</button></div>
+    <div class="col"><button class="btn btn-warning w-100" onclick="mostrar('facturacion')">Facturación</button></div>
+    <div class="col"><button class="btn btn-info w-100" onclick="mostrar('buscar')">Buscar</button></div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- INVENTARIO -->
+  <div id="inventario" class="seccion mt-4" style="display:none;">
+    <h4>Inventario</h4>
+
+    <input id="nombre" class="form-control my-2" placeholder="Nombre producto">
+    <input id="precio" type="number" class="form-control my-2" placeholder="Precio">
+
+    <button class="btn btn-success" onclick="agregarProducto()">Agregar</button>
+
+    <ul id="listaProductos" class="mt-3"></ul>
+  </div>
+
+  <!-- FACTURACIÓN -->
+  <div id="facturacion" class="seccion mt-4" style="display:none;">
+    <h4>Facturación</h4>
+
+    <select id="productoSelect" class="form-control my-2"></select>
+    <input id="cantidad" type="number" class="form-control my-2" placeholder="Cantidad">
+
+    <button class="btn btn-warning" onclick="agregarFactura()">Agregar a factura</button>
+
+    <ul id="facturaLista" class="mt-3"></ul>
+
+    <h5>Total: $<span id="total">0</span></h5>
+
+    <button class="btn btn-primary" onclick="exportar()">Exportar factura</button>
+  </div>
+
+  <!-- BUSCAR -->
+  <div id="buscar" class="seccion mt-4" style="display:none;">
+    <h4>Buscar Producto</h4>
+
+    <input id="busqueda" class="form-control" onkeyup="buscarProducto()" placeholder="Buscar...">
+
+    <ul id="resultadoBusqueda"></ul>
+  </div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
