@@ -8,22 +8,22 @@ let usuarios = [
 
 // LOGIN
 function entrar() {
-  let u = user.value;
-  let p = pass.value;
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
 
   let encontrado = usuarios.find(x => x.user === u && x.pass === p);
 
   if (encontrado) {
-    login.style.display = "none";
-    panel.style.display = "block";
+    document.getElementById("login").style.display = "none";
+    document.getElementById("panel").style.display = "block";
   } else {
     alert("Usuario o contraseña incorrectos");
   }
 }
 
 function salir() {
-  panel.style.display = "none";
-  login.style.display = "block";
+  document.getElementById("panel").style.display = "none";
+  document.getElementById("login").style.display = "block";
 }
 
 // REGISTRO
@@ -44,8 +44,8 @@ function registrar() {
   usuarios.push({ user: u, pass: p });
   alert("Usuario creado");
 
-  nuevoUser.value = "";
-  nuevoPass.value = "";
+  document.getElementById("nuevoUser").value = "";
+  document.getElementById("nuevoPass").value = "";
 }
 
 // NAVEGACIÓN
@@ -65,26 +65,27 @@ function agregarProducto() {
 
   let li = document.createElement("li");
   li.textContent = nombre + " - $" + precio;
-  listaProductos.appendChild(li);
+  document.getElementById("listaProductos").appendChild(li);
 
   actualizarSelect();
 }
 
 function actualizarSelect() {
-  productoSelect.innerHTML = "";
+  let select = document.getElementById("productoSelect");
+  select.innerHTML = "";
 
   productos.forEach((p, i) => {
     let option = document.createElement("option");
     option.value = i;
     option.text = p.nombre;
-    productoSelect.appendChild(option);
+    select.appendChild(option);
   });
 }
 
 // FACTURA
 function agregarFactura() {
-  let i = productoSelect.value;
-  let cantidad = parseInt(cantidad.value);
+  let i = document.getElementById("productoSelect").value;
+  let cantidad = parseInt(document.getElementById("cantidadInput").value);
 
   if (i === "" || !cantidad) return;
 
@@ -96,49 +97,52 @@ function agregarFactura() {
 
   let li = document.createElement("li");
   li.textContent = `${prod.nombre} x${cantidad} = $${subtotal}`;
-  facturaLista.appendChild(li);
+  document.getElementById("facturaLista").appendChild(li);
 
   document.getElementById("total").textContent = total;
 }
 
+// NUEVA FACTURA
 function nuevaFactura() {
   factura = [];
   total = 0;
 
-  facturaLista.innerHTML = "";
+  document.getElementById("facturaLista").innerHTML = "";
   document.getElementById("total").textContent = "0";
 
-  clienteNombre.value = "";
-  clienteCedula.value = "";
-  cantidad.value = "";
+  document.getElementById("clienteNombre").value = "";
+  document.getElementById("clienteCedula").value = "";
+  document.getElementById("cantidadInput").value = "";
 
-  alert("Nueva factura lista");
+  alert("Nueva factura iniciada");
 }
 
 // BUSCAR
 function buscarProducto() {
-  let texto = busqueda.value.toLowerCase();
-  resultadoBusqueda.innerHTML = "";
+  let texto = document.getElementById("busqueda").value.toLowerCase();
+  let lista = document.getElementById("resultadoBusqueda");
+
+  lista.innerHTML = "";
 
   productos.forEach(p => {
     if (p.nombre.toLowerCase().includes(texto)) {
       let li = document.createElement("li");
       li.textContent = p.nombre;
-      resultadoBusqueda.appendChild(li);
+      lista.appendChild(li);
     }
   });
 }
 
 function limpiarBusqueda() {
-  busqueda.value = "";
-  resultadoBusqueda.innerHTML = "";
+  document.getElementById("busqueda").value = "";
+  document.getElementById("resultadoBusqueda").innerHTML = "";
 }
 
 // EXPORTAR
 function exportar() {
 
-  let nombre = clienteNombre.value;
-  let cedula = clienteCedula.value;
+  let nombre = document.getElementById("clienteNombre").value;
+  let cedula = document.getElementById("clienteCedula").value;
 
   if (!nombre || !cedula) {
     alert("Ingrese datos del cliente");
@@ -161,4 +165,3 @@ function exportar() {
   link.href = URL.createObjectURL(blob);
   link.download = "factura.txt";
   link.click();
-}
