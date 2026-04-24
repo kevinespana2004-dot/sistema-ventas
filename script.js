@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-let productos = [];
+let productos = []; // 🔥 ahora se reasigna por usuario
 let factura = [];
 let total = 0;
 
 let usuarios = [
-  { user: "admin", pass: "123", negocio: "Mi Negocio" }
+  { user: "admin", pass: "123", negocio: "Mi Negocio", productos: [] }
 ];
 
 let usuarioActual = null;
@@ -20,10 +20,22 @@ window.entrar = function() {
   if (encontrado) {
     usuarioActual = encontrado;
 
+    // 🔥 CLAVE: cada usuario tiene su inventario
+    productos = usuarioActual.productos;
+
     document.getElementById("login").style.display = "none";
     document.getElementById("panel").style.display = "block";
 
     document.getElementById("tituloNegocio").innerText = encontrado.negocio;
+
+    document.getElementById("listaProductos").innerHTML = "";
+    productos.forEach(p => {
+      let li = document.createElement("li");
+      li.textContent = p.nombre + " - $" + p.precio + " | Stock: " + p.stock;
+      document.getElementById("listaProductos").appendChild(li);
+    });
+
+    actualizarSelect();
   } else {
     alert("Usuario o contraseña incorrectos");
   }
@@ -51,7 +63,7 @@ window.registrar = function() {
     return;
   }
 
-  usuarios.push({ user: u, pass: p, negocio: n });
+  usuarios.push({ user: u, pass: p, negocio: n, productos: [] });
 
   alert("Usuario creado");
 
@@ -84,6 +96,7 @@ window.agregarProducto = function() {
   actualizarSelect();
 }
 
+// SELECT
 function actualizarSelect() {
   let select = document.getElementById("productoSelect");
   select.innerHTML = "";
@@ -131,12 +144,6 @@ window.nuevaFactura = function() {
 
   document.getElementById("facturaLista").innerHTML = "";
   document.getElementById("total").textContent = "0";
-
-  document.getElementById("clienteNombre").value = "";
-  document.getElementById("clienteCedula").value = "";
-  document.getElementById("cantidadInput").value = "";
-
-  alert("Nueva factura iniciada");
 }
 
 // BUSCAR
