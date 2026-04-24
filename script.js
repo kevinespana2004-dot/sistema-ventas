@@ -59,6 +59,8 @@ function agregarFactura() {
   let i = productoSelect.value;
   let cantidad = parseInt(document.getElementById("cantidad").value);
 
+  if (i === "" || !cantidad) return;
+
   let prod = productos[i];
   let subtotal = prod.precio * cantidad;
 
